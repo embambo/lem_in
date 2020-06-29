@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 13:08:27 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:17:53 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,19 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	cntr;
-	t_uchar *src_cpy;
-	t_uchar *dst_cpy;
+	unsigned char	*destination;
+	unsigned char	*source;
 
-	cntr = 0;
-	src_cpy = (t_uchar *)src;
-	dst_cpy = (t_uchar *)dst;
-	if (dst < src)
-		while (cntr < len)
-		{
-			dst_cpy[cntr] = src_cpy[cntr];
-			++cntr;
-		}
-	else
-		while (cntr < len)
-		{
-			dst_cpy[(len - 1) - cntr] = src_cpy[(len - 1) - cntr];
-			++cntr;
-		}
+	if (&dst[0] < &src[0])
+		return (ft_memcpy(dst, src, len));
+	destination = (unsigned char*)dst;
+	source = (unsigned char*)src;
+	if (!dst && !src && len > 0)
+		return (NULL);
+	while (len > 0)
+	{
+		destination[len - 1] = source[len - 1];
+		len--;
+	}
 	return (dst);
 }

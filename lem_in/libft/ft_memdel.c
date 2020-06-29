@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/24 13:30:15 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:16:42 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	ft_memdel(void **ap)
 {
-	if (ap && *ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	if (!ap)
+		return ;
+	free(*ap);
+	*ap = NULL;
 }

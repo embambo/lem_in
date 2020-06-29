@@ -3,52 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/07 17:16:03 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:23:32 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		ft_calc_divisor(int n)
+void	ft_putnbr_fd(int nb, int fd)
 {
-	long	tmp;
-	int		divisor;
+	unsigned int	nbr;
 
-	tmp = n;
-	divisor = 1;
-	if (tmp < 0)
-		tmp *= -1;
-	tmp /= 10;
-	while (tmp > 0)
+	if (nb < 0)
 	{
-		divisor *= 10;
-		tmp /= 10;
+		ft_putchar_fd('-', fd);
+		nbr = (unsigned int)(nb * -1);
 	}
-	return (divisor);
-}
-
-void			ft_putnbr_fd(int n, int fd)
-{
-	int		ans;
-	int		divisor;
-	long	tmp;
-
-	ans = 0;
-	divisor = ft_calc_divisor(n);
-	tmp = n;
-	if (tmp < 0)
-	{
-		tmp *= -1;
-		ft_putchar_fd(45, fd);
-	}
-	while (divisor > 0)
-	{
-		ans = tmp / divisor;
-		ft_putchar_fd(ans + 48, fd);
-		tmp = tmp - (ans * divisor);
-		divisor /= 10;
-	}
+	else
+		nbr = (unsigned int)nb;
+	if (nbr >= 10)
+		ft_putnbr_fd(nbr / 10, fd);
+	ft_putchar_fd((char)(nbr % 10 + 48), fd);
 }

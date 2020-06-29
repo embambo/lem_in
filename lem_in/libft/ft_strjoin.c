@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/30 16:35:21 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:36:44 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	str1_len;
-	size_t	str2_len;
-	char	*newstr;
+	size_t	length;
+	char	*freshstring;
 
 	if (!s1 || !s2)
+		return (0);
+	length = ft_strlen(s1) + ft_strlen(s2);
+	freshstring = (char*)malloc(sizeof(char) * (length + 1));
+	if (freshstring == NULL)
 		return (NULL);
-	str1_len = ft_strlen(s1);
-	str2_len = ft_strlen(s2);
-	newstr = ft_strnew(str1_len + str2_len);
-	if (!newstr)
-		return (NULL);
-	ft_strcpy(newstr, s1);
-	ft_strcat(newstr, s2);
-	return (newstr);
+	ft_strcpy(freshstring, (char*)s1);
+	ft_strcat(freshstring, (char*)s2);
+	return (freshstring);
 }

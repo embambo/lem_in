@@ -3,49 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/24 12:20:34 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:47:52 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	_Bool	ft_matchline(const char *hay, const char *ndl)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	size_t	cntr;
-	size_t	ndl_len;
+	size_t		row;
+	size_t		column;
+	char		*haystac;
+	char		*needl;
 
-	cntr = 0;
-	ndl_len = ft_strlen(ndl);
-	while (hay[cntr] == ndl[cntr] && hay[cntr] && ndl[cntr])
-		++cntr;
-	if (cntr == ndl_len)
-		return (1);
-	return (0);
-}
-
-char			*ft_strstr(const char *hay, const char *ndl)
-{
-	size_t	cntr;
-	size_t	ndl_len;
-	size_t	hay_len;
-	_Bool	match;
-
-	cntr = 0;
-	ndl_len = ft_strlen(ndl);
-	hay_len = ft_strlen(hay);
-	if (!(*ndl))
-		return ((char *)hay);
-	while (hay[cntr])
+	row = 0;
+	haystac = (char*)haystack;
+	needl = (char*)needle;
+	if (needl[0] == '\0')
+		return (haystac);
+	while (haystac[row])
 	{
-		if (hay + ndl_len + cntr > hay + hay_len)
-			break ;
-		match = ft_matchline(hay + cntr, ndl);
-		if (match == 1)
-			return ((char *)(hay + cntr));
-		++cntr;
+		column = 0;
+		while (haystac[row + column] == needl[column])
+		{
+			if (needl[column + 1] == '\0')
+				return (&haystac[row]);
+			column++;
+		}
+		row++;
 	}
 	return (NULL);
 }

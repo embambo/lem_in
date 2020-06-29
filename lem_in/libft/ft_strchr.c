@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 14:23:12 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:28:58 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		cntr;
-
-	cntr = 0;
-	while (s[cntr] != (char)c && s[cntr])
-		++cntr;
-	return (s[cntr] == (char)c ? (char *)(&(s[cntr])) : NULL);
+	while (*s)
+	{
+		if (*s == c)
+			return ((char*)s);
+		++s;
+	}
+	if (c == '\0')
+		return ((char*)s);
+	return (0);
 }

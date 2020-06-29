@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/07 13:55:24 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:38:58 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,15 @@
 
 char	*ft_strmap(char const *s, char (*f)(char))
 {
-	size_t	str_len;
-	size_t	cntr;
-	char	*newstr;
+	char	*ptr;
+	char	*ptr2;
+	char	*result;
 
-	if (s && f)
-	{
-		str_len = ft_strlen(s);
-		cntr = 0;
-		newstr = ft_strnew(str_len);
-		if (!newstr)
-			return (NULL);
-		while (newstr && s[cntr])
-		{
-			newstr[cntr] = (*f)(s[cntr]);
-			++cntr;
-		}
-		return (newstr);
-	}
-	return (NULL);
+	if (!s || !(result = ft_memalloc((size_t)ft_strlen((char*)s) + 1)))
+		return (NULL);
+	ptr = (char*)s;
+	ptr2 = result;
+	while (*ptr)
+		*(ptr2++) = f(*(ptr++));
+	return (result);
 }

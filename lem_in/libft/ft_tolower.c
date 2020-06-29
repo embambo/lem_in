@@ -3,23 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 13:20:39 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:50:50 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_tolower(int c)
+int		ft_tolower(int c)
 {
-	t_uchar	ch;
-
-	ch = (t_uchar)c;
-	if (c < 'A' || c > 'Z')
-		return (c);
-	if (ch >= 'A' && ch <= 'Z')
-		return (ch + 32);
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
 	return (c);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 08:28:53 by embambo          #+#    #+#             */
+/*   Updated: 2020/06/25 15:59:21 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 int		ft_isalpha(int c)
 {
-	t_uchar	ch;
-
-	ch = (t_uchar)c;
-	if (c > 122 || c < 65)
-		return (0);
-	if ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122))
+	if (ft_isupper(c) || ft_islower(c))
 		return (1);
 	return (0);
 }

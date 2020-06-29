@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/07 13:21:52 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:29:40 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	ft_strclr(char *s)
 {
-	size_t	str_len;
+	char	*ptr;
 
-	if (s)
-	{
-		str_len = ft_strlen((const char *)s);
-		ft_bzero((t_uchar *)s, str_len);
-	}
+	ptr = s;
+	while (ptr && *ptr)
+		*(ptr++) = '\0';
 }

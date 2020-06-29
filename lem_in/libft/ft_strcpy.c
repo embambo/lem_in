@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                         :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 13:33:50 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:31:47 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *destination, const char *source)
 {
-	size_t	strlen;
-	size_t	cntr;
+	size_t		control;
 
-	strlen = ft_strlen(src);
-	cntr = 0;
-	while (cntr < strlen)
+	control = 0;
+	while (source[control])
 	{
-		dst[cntr] = src[cntr];
-		++cntr;
+		destination[control] = source[control];
+		control++;
 	}
-	dst[cntr] = '\0';
-	return (dst);
+	destination[control] = '\0';
+	return (destination);
 }

@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/23 14:03:09 by embambo           #+#    #+#             */
-/*   Updated: 2020/06/25 16:42:15 by embambo          ###   ########.fr       */
+/*   Created: 2019/06/07 12:19:48 by embambo          #+#    #+#             */
+/*   Updated: 2020/06/25 16:04:22 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+int	ft_isupper(int c)
 {
-	size_t		control;
-
-	control = 0;
-	while (src[control] && control < len)
-	{
-		dst[control] = src[control];
-		control++;
-	}
-	while (control < len)
-	{
-		dst[control] = '\0';
-		control++;
-	}
-	return (dst);
+	return (c >= 65 && c <= 90);
 }

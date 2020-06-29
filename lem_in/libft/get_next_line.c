@@ -1,77 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/26 15:07:26 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:52:24 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-static int			build_arr(int fd, t_mem *m)
+void	*ft_substring(int fd, char *file[], char **line, int el)
 {
-	char		*tmp;
-	char		*prev_arr;
+	unsigned int	line_len;
+	size_t			file_len;
+	int				len;
+	char			*substr;
 
-	if (!m->read_b)
-		m->swtch = 0;
-	if (!m->arr)
-	{
-		if (!(m->arr = ft_memalloc(sizeof(char) * BUFF_SIZE + 1)))
-			return (-1);
-		if ((m->read_b = read(fd, m->arr, BUFF_SIZE)) == -1)
-			return (-1);
-	}
-	while (m->arr && !ft_strchr(m->arr, '\n') && m->read_b)
-	{
-		if (!(tmp = ft_memalloc(sizeof(char) * BUFF_SIZE + 1)))
-			return (-1);
-		if ((m->read_b = read(fd, tmp, BUFF_SIZE)) == -1)
-			return (-1);
-		prev_arr = m->arr;
-		m->arr = ft_strjoin(m->arr, tmp);
-		ft_memdel((void **)(&prev_arr));
-		ft_memdel((void **)(&tmp));
-	}
-	return (0);
+	line_len = (unsigned int)ft_strlen(*line);
+	file_len = (size_t)ft_strlen(file[fd]);
+	len = (int)ft_strlen(*line);
+	substr = ft_strsub(file[fd], line_len + el, file_len - len + el);
+	return (substr);
 }
 
-static void			ft_reset(int fd, t_mem *m)
+int		get_next_line(const int fd, char **line)
 {
-	if (m->prev_fd != fd)
+	static char *file[MAX_FD];
+	char		buf[BUFF_SIZE + 1];
+	char		*temp;
+	int			ret;
+	int			el;
+
+	if (fd < 0 || read(fd, NULL, 0) == -1
+			|| (!file[fd] && !(file[fd] = ft_strnew(1))) || !line)
+		return (-1);
+	while (!ft_strchr(file[fd], '\n') && (ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		m->arr = NULL;
-		m->read_b = 1;
-		m->swtch = 1;
+		buf[ret] = '\0';
+		temp = file[fd];
+		file[fd] = ft_strjoin(file[fd], buf);
+		ft_strdel(&temp);
 	}
-	return ;
-}
-
-int					get_next_line(const int fd, char **line)
-{
-	static	t_mem	m = {NULL, NULL, -1, 1, 1};
-
-	if (fd < 0 || BUFF_SIZE < 1 || !line)
-		return (-1);
-	ft_reset(fd, &m);
-	m.prev_fd = fd;
-	if ((build_arr(fd, &m)) == -1)
-		return (-1);
-	if (m.swtch > 0)
-		*line = ft_strsub(m.arr, 0, ft_strclen(m.arr, '\n'));
+	if (ret == -1 || !*(temp = file[fd]))
+		return (ret == -1 ? -1 : 0);
+	if ((el = (ft_strchr(file[fd], '\n') > 0)))
+		*line = ft_strsub(file[fd], 0, ft_strchr(file[fd], '\n') - file[fd]);
 	else
-		*line = ft_strsub(m.arr, 0, 0);
-	if (m.arr && ft_strchr(m.arr, '\n'))
-	{
-		m.prev_arr = m.arr;
-		m.arr = ft_strdup(ft_strchr(m.arr, '\n') + 1);
-		ft_memdel((void **)(&m.prev_arr));
-	}
-	if (!m.read_b && !ft_strlen(*line))
-		return (0);
-	return (1);
+		*line = ft_strdup(file[fd]);
+	file[fd] = (char*)ft_substring(fd, file, line, el);
+	ft_strdel(&temp);
+	return (!(!file[fd] && !ft_strlen(*line)));
 }

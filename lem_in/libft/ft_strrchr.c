@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/24 12:13:33 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:45:35 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	size_t	cntr;
-	char	ch;
-	char	*ptr;
+	char	*last_pos;
 
-	cntr = 0;
-	ch = (char)c;
-	ptr = NULL;
-	while (s[cntr])
+	last_pos = (0);
+	while (*s)
 	{
-		if (s[cntr] == ch)
-			ptr = (char *)(&s[cntr]);
-		++cntr;
+		if (*s == c)
+			last_pos = (char*)s;
+		++s;
 	}
-	if (s[cntr] == ch)
-		ptr = (char *)(&s[cntr]);
-	return (ptr);
+	if (last_pos)
+		return (last_pos);
+	if (c == '\0')
+		return ((char*)s);
+	return (NULL);
 }

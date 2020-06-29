@@ -3,90 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/06 12:35:22 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:46:31 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_wrd_count(char *s, char c)
+static int			ft_wcount(const char *s, char c)
 {
-	size_t		cntr;
-	size_t		wrd_count;
-	_Bool		swtch;
-	t_uchar		ch;
+	size_t	ctrl;
+	int		num;
 
-	cntr = 0;
-	wrd_count = 0;
-	swtch = 0;
-	ch = (t_uchar)c;
-	while (s[cntr])
+	ctrl = 0;
+	num = 0;
+	if (s[ctrl] != c)
+		num++;
+	while (s[ctrl])
 	{
-		if (s[cntr] != ch && swtch == 0)
-			++wrd_count;
-		if (s[cntr] != ch)
-			swtch = 1;
-		if (s[cntr] == ch)
-			swtch = 0;
-		++cntr;
+		if (s[ctrl] == c && s[ctrl + 1] != c && s[ctrl + 1] != '\0')
+			num++;
+		ctrl++;
 	}
-	return (wrd_count);
+	return (num);
 }
 
-static	char	*ft_nxt_wrd_adrs(char *s, char c, _Bool *wrd_1st)
+static	int			ft_len(const char *s, char c)
 {
-	size_t		cntr;
-	t_uchar		ch;
+	int		ctrl;
 
-	cntr = 0;
-	ch = (t_uchar)c;
-	if (*wrd_1st)
-	{
-		*wrd_1st = 0;
-		return (s);
-	}
-	while (s[cntr] && s[cntr] != ch)
-		++cntr;
-	while (s[cntr] && s[cntr] == ch)
-		++cntr;
-	return (&s[cntr]);
+	ctrl = 0;
+	while (s[ctrl] && s[ctrl] != c)
+		ctrl++;
+	return (ctrl);
 }
 
-static	char	**ft_alloc_and_cpy(char *s, char c, _Bool wrd_1st)
+static char			**ft_split(char const *s, char c, size_t i, size_t row)
 {
-	size_t		cntr;
-	size_t		wrd_count;
-	size_t		wrd_len;
-	char		*wrd_adrs;
-	char		**ar;
+	size_t	col;
+	char	**a;
 
-	cntr = 0;
-	wrd_count = ft_wrd_count(s, c);
-	ar = (char **)malloc(sizeof(char *) * wrd_count + 1);
-	if (!ar)
+	if (!(a = (char**)malloc(sizeof(char*) * ft_wcount(s, c) + 1)))
 		return (NULL);
-	wrd_1st = (*s != (t_uchar)c) ? 1 : 0;
-	wrd_adrs = s;
-	while (cntr < wrd_count)
+	while (s[i])
 	{
-		wrd_adrs = ft_nxt_wrd_adrs(wrd_adrs, c, &wrd_1st);
-		wrd_len = ft_strclen(wrd_adrs, c);
-		ar[cntr] = ft_strsub(wrd_adrs, 0, wrd_len);
-		++cntr;
+		if (s[i] == c)
+			i++;
+		else
+		{
+			col = 0;
+			if (!(a[row] = (char*)malloc(sizeof(char) * ft_len(&s[i], c) + 1)))
+				return (NULL);
+			else
+			{
+				while (s[i] && s[i] != c)
+					a[row][col++] = s[i++];
+				a[row][col] = '\0';
+				row++;
+			}
+		}
 	}
-	ar[wrd_count] = NULL;
-	return (ar);
+	a[row] = 0;
+	return (a);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char				**ft_strsplit(char const *s, char c)
 {
-	char		**ar;
+	size_t		ctrl;
+	size_t		col;
 
+	ctrl = 0;
+	col = 0;
 	if (!s)
 		return (NULL);
-	ar = ft_alloc_and_cpy((char *)s, c, 0);
-	return (ar);
+	return (ft_split(s, c, ctrl, col));
 }

@@ -3,92 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/06/06 14:47:52 by embambo          #+#    #+#             */
+/*   Updated: 2020/06/25 16:04:55 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_count_num(int n)
+static int		ft_num_len(int num)
 {
-	size_t	cntr;
-	long	ans;
+	int			len;
 
-	cntr = 0;
-	ans = n;
-	if (ans < 0)
-		ans *= -1;
-	if (!ans)
+	len = 1;
+	if (num < 0)
+	{
+		len++;
+		num *= -1;
+	}
+	while (num > 9)
+	{
+		num /= 10;
+		len++;
+	}
+	return (len);
+}
+
+static int		ft_div(int len)
+{
+	int		div;
+
+	div = 1;
+	if (len == 1)
 		return (1);
-	while (ans > 0)
+	while (len > 1)
 	{
-		ans /= 10;
-		++cntr;
+		div *= 10;
+		len--;
 	}
-	return (cntr);
-}
-
-static	int		ft_calc_divisor(int n)
-{
-	size_t	cntr;
-	size_t	num_cnt;
-	int		divisor;
-
-	cntr = 0;
-	num_cnt = ft_count_num(n);
-	divisor = 1;
-	while (num_cnt && cntr < num_cnt - 1)
-	{
-		divisor *= 10;
-		++cntr;
-	}
-	return (divisor);
-}
-
-static	char	*ft_write_num(char *str, int n, int sign)
-{
-	long	tmp;
-	size_t	cntr;
-	int		divisor;
-	int		ans;
-
-	tmp = n;
-	cntr = 0;
-	divisor = ft_calc_divisor(n);
-	if (sign < 0)
-	{
-		tmp *= -1;
-		str[0] = '-';
-		++cntr;
-	}
-	while (divisor > 0)
-	{
-		ans = tmp / divisor;
-		str[cntr] = ans + 48;
-		tmp = tmp - (ans * divisor);
-		divisor /= 10;
-		++cntr;
-	}
-	return (str);
+	return (div);
 }
 
 char			*ft_itoa(int n)
 {
-	int		sign;
-	size_t	num_cnt;
-	char	*str;
+	int		ctrl;
+	int		len;
+	int		maxlen;
+	char	*res;
 
-	sign = (n < 0) ? -1 : 1;
-	num_cnt = ft_count_num(n);
-	if (sign == -1)
-		++num_cnt;
-	str = ft_strnew(num_cnt);
-	if (!str)
+	len = ft_num_len(n);
+	maxlen = len;
+	if (!(res = (char*)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	if (str)
-		str = ft_write_num(str, n, sign);
-	return (str);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	ctrl = 0;
+	if (n < 0)
+	{
+		n *= -1;
+		res[0] = '-';
+		ctrl++;
+		len--;
+	}
+	while (ctrl < maxlen)
+		res[ctrl++] = (((n / ft_div(len--)) % 10) + 48);
+	res[ctrl++] = '\0';
+	return (res);
 }

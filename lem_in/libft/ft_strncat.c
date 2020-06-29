@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 14:07:58 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:40:26 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	size_t	nul_pos;
-	int		s2_cntr;
-	size_t	num_count;
+	size_t		control;
+	size_t		length;
 
-	nul_pos = ft_strlen(s1);
-	s2_cntr = 0;
-	num_count = 0;
-	while (s2[s2_cntr] && num_count < n)
+	length = ft_strlen(s1);
+	control = 0;
+	while (s2[control] && control < n)
 	{
-		s1[nul_pos] = s2[s2_cntr];
-		++nul_pos;
-		++s2_cntr;
-		++num_count;
+		s1[length] = s2[control];
+		length++;
+		control++;
 	}
-	s1[nul_pos] = '\0';
+	s1[length] = '\0';
 	return (s1);
 }

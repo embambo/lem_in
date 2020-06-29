@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 15:37:08 by embambo           #+#    #+#             */
-/*   Updated: 2020/06/25 16:24:40 by embambo          ###   ########.fr       */
+/*   Created: 2019/06/26 15:08:21 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:52:39 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	ft_putstr(char const *s)
-{
-	if (!s)
-		return ;
-	write(1, s, ft_strlen(s));
-}
+# define BUFF_SIZE   32
+# define MAX_FD      2147483647
+
+# include <unistd.h>
+# include "libft.h"
+
+int		get_next_line(const int fd, char **line);
+
+#endif

@@ -3,47 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/24 12:26:43 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:44:35 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	_Bool	ft_matchline(const char *hay, const char *ndl)
+char	*ft_strnstr(const char *h, const char *n, size_t len)
 {
-	size_t	cntr;
-	size_t	ndl_len;
+	unsigned int pos;
+	unsigned int i;
 
-	cntr = 0;
-	ndl_len = ft_strlen(ndl);
-	while (hay[cntr] == ndl[cntr] && hay[cntr] && ndl[cntr])
-		++cntr;
-	if (cntr == ndl_len)
-		return (1);
-	return (0);
-}
-
-char			*ft_strnstr(const char *hay, const char *ndl, size_t len)
-{
-	size_t	cntr;
-	size_t	ndl_len;
-	_Bool	match;
-
-	cntr = 0;
-	ndl_len = ft_strlen(ndl);
-	if (!(*ndl))
-		return ((char *)hay);
-	while (hay[cntr])
+	if (!*n)
+		return ((char*)h);
+	pos = 0;
+	while (h[pos] != '\0' && (size_t)pos < len)
 	{
-		if (hay + ndl_len + cntr > hay + len)
-			break ;
-		match = ft_matchline(hay + cntr, ndl);
-		if (match == 1)
-			return ((char *)(hay + cntr));
-		++cntr;
+		if (h[pos] == n[0])
+		{
+			i = 1;
+			while (n[i] != '\0' && h[pos + i] == n[i] &&
+					(size_t)(pos + i) < len)
+				++i;
+			if (n[i] == '\0')
+				return ((char*)&h[pos]);
+		}
+		++pos;
 	}
-	return (NULL);
+	return (0);
 }

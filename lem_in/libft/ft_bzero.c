@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 08:10:19 by embambo          #+#    #+#             */
+/*   Updated: 2020/06/25 15:57:54 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *b, size_t n)
 {
-	size_t		cntr;
+	unsigned char	*tab;
 
-	cntr = 0;
-	while (cntr < n)
-	{
-		((unsigned char *)s)[cntr] = 0;
-		++cntr;
-	}
+	tab = (unsigned char*)b;
+	while (n-- > 0)
+		*(tab++) = 0;
 }

@@ -3,40 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 08:01:31 by embambo          #+#    #+#             */
+/*   Updated: 2020/06/29 10:50:51 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	int		ans;
-	int		sign;
-	size_t	num_cnt;
+	long long	result;
+	long long	sign;
 
-	ans = 0;
 	sign = 1;
-	num_cnt = 0;
-	while (((*str >= 9 && *str <= 13) || *str == 32) && *str)
+	result = 0;
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
+			*str == '\v' || *str == '\f' || *str == '\r'))
 		++str;
-	if (*str == '+' || *str == '-')
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		++str;
+	while (*str && *str >= '0' && *str <= '9')
 	{
-		if (*str == '-')
-			sign = -1;
+		result = result * 10 + (*str - 48);
 		++str;
 	}
-	while (*str == '0')
-		++str;
-	while (*str && (*str >= '0' && *str <= '9'))
-	{
-		ans = (ans * 10) + (*str++ - 48);
-		if (num_cnt > 18)
-			return (sign == -1 ? 0 : -1);
-		++num_cnt;
-	}
-	return (ans * sign);
+	return (result * sign);
 }

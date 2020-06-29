@@ -3,30 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdomingo <rdomingo@student.wethinkcode.    +#+  +:+       +#+        */
+/*   By: embambo  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 16:14:59 by rdomingo          #+#    #+#             */
-/*   Updated: 2019/11/09 16:15:00 by rdomingo         ###   ########.fr       */
+/*   Created: 2019/05/23 14:04:29 by embambo           #+#    #+#             */
+/*   Updated: 2020/06/25 16:28:13 by embambo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+char	*ft_strcat(char *str1, const char *str2)
 {
-	int		nul_pos;
-	int		s2_cntr;
+	size_t	length;
+	size_t	control;
 
-	nul_pos = 0;
-	s2_cntr = 0;
-	while (s1[nul_pos])
-		++nul_pos;
-	while (s2[s2_cntr])
+	length = ft_strlen(str1);
+	control = 0;
+	while (str2[control])
 	{
-		s1[nul_pos] = s2[s2_cntr];
-		++nul_pos;
-		++s2_cntr;
+		str1[length] = str2[control];
+		length++;
+		control++;
 	}
-	s1[nul_pos] = '\0';
-	return (s1);
+	str1[length] = '\0';
+	return (str1);
 }
